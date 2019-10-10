@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>
+        ul{margin:0; padding:0; list-style:none; overflow:hidden;}
+        #cc{ width:500px; border:1px #000 solid; text-align: center ; margin: 0 auto; }
+        ul{ border:1px solid;}
+        li{width:100px; float:left; background-color:#fff; height:50px; line-height:50px; text-align:center; }
+        li.active{background-color:#ff00ff;}
+        #cc .content{ height: 150px;margin-top: 50px}
+    </style>
+</head>
+<body>
+<div id="cc">
+    <a-tab :cities="cities1" :contents="contents1" :n="ne"></a-tab>
+    </br>
+    <a-tab :cities="cities2" :contents="contents2" :n="ne"></a-tab>
+</div>
+<script>
+    Vue.component('a-tab',{
+        props : ['cities','contents','n'],
+        data(){
+            return {
+                value : this.n
+            }
+        },
+        template:`
+	<div id="cc">
+		<ul>
+			<li v-for="city,index of cities"
+			:class="{active:index==value}"
+			@mouseover="xuanze(index)">{{city}}</li>
+		</ul>
+		<div class="content">{{contents[value]}}</div>
+	</div>
+	`,
+        methods : {
+            xuanze (index){
+                this.value = index;
+            }
+        }
+    })
+    new Vue({
+        el : "#cc",
+        data : {
+            cities1 : ["选项卡1","选项卡2","选项卡3"],
+            contents1 : ["选项卡1","选项卡2","选项卡3"],
+            ne : 0,
+            cities2 : ["天猫","淘宝","京东","拼多多"],
+            contents2 : ["天猫超市","聚划算","JD快递","假一赔十"]
+        }
+    })
+</script>
+</body>
+</html>
